@@ -5,4 +5,4 @@ def triplet_generator():
         a_batch = np.random.rand(4, 96, 96, 3)
         p_batch = np.random.rand(4, 96, 96, 3)
         n_batch = np.random.rand(4, 96, 96, 3)
-        yield [a_batch, p_batch, n_batch], None
+        yield [a_batch , p_batch, n_batch], None

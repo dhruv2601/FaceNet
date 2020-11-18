@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------------------
-# Code taken from https://github.com/iwantooxxoox/Keras-OpenFace (with minor modifications)
+# Implementation taken from https://github.com/iwantooxxoox/Keras-OpenFace (with minor modifications)
 # -----------------------------------------------------------------------------------------
 
 from keras.layers import Conv2D, ZeroPadding2D, Activation, Input, concatenate

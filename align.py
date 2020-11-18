@@ -47,53 +47,54 @@ class AlignDlib:
     OUTER_EYES_AND_NOSE = [36, 45, 33]
 
     def __init__(self, facePredictor):
-
         assert facePredictor is not None
 
         self.detector = dlib.get_frontal_face_detector()
-        self.predictor = dlib.shape_predictor()
+        self.predictor = dlib.shape_predictor(facePredictor)
 
-    def fetchBoundBoxesAllFaces(self, rgbImg):
+    def getAllFaceBoundingBoxes(self, rgbImg):
         assert rgbImg is not None
 
         try:
             return self.detector(rgbImg, 1)
         except Exception as e:
             print("Warning: {}".format(e))
+            # In rare cases, exceptions are thrown.
             return []
 
-    def fetchBoundingBoxLargestFace(self, rgbImg, skipMultiFaces = False):
+    def getLargestFaceBoundingBox(self, rgbImg, skipMulti=False):
         assert rgbImg is not None
 
-        faces = self.fetchBoundBoxesAllFaces(rgbImg)
-        if(not skipMultiFaces and len(faces) > 0) or len(faces) == 1:
-            return max(faces, lambda rect: rect.weight() * rect.height())
+        faces = self.getAllFaceBoundingBoxes(rgbImg)
+        if (not skipMulti and len(faces) > 0) or len(faces) == 1:
+            return max(faces, key=lambda rect: rect.width() * rect.height())
         else:
             return None
 
-    def fetchLandmarks(self, rgbImg, boundingBox):
+    def findLandmarks(self, rgbImg, bb):
         assert rgbImg is not None
-        assert boundingBox is not None
+        assert bb is not None
 
-        points = self.predictor(rgbImg, boundingBox)
+        points = self.predictor(rgbImg, bb)
         return list(map(lambda p: (p.x, p.y), points.parts()))
 
-    def align(self, imgDim, rgbImg, boundingBox=None, landmarks=None,
-                landmarkIndices=INNER_EYES_AND_BOTTOM_LIP, skipMulti=False):
+    def align(self, imgDim, rgbImg, bb=None,
+              landmarks=None, landmarkIndices=INNER_EYES_AND_BOTTOM_LIP,
+              skipMulti=False):
         assert imgDim is not None
         assert rgbImg is not None
         assert landmarkIndices is not None
 
-        if boundingBox is None:
-            boundingBox = self.fetchBoundingBoxLargestFace(rgbImg, skipMulti)
-            if boundingBox is None:
+        if bb is None:
+            bb = self.getLargestFaceBoundingBox(rgbImg, skipMulti)
+            if bb is None:
                 return
 
         if landmarks is None:
-            landmarks = self.fetchLandmarks(rgbImg, boundingBox)
+            landmarks = self.findLandmarks(rgbImg, bb)
 
         npLandmarks = np.float32(landmarks)
-        npLandmarkIndices = np.float32(landmarkIndices)
+        npLandmarkIndices = np.array(landmarkIndices)
 
         H = cv2.getAffineTransform(npLandmarks[npLandmarkIndices],
                                    imgDim * MINMAX_TEMPLATE[npLandmarkIndices])
