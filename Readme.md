@@ -4,4 +4,16 @@
 * Facial Alignment as discussed in the paper is implemented - with the help of Dlib and OpenCV.
 * Model as discussed is prepared and training is done on really small custom dataset.
 * Weights from the pretrained OpenFace model(an implementation of FaceNet trained on the public datasets FaceScrub and CASIA-WebFace) are used further.
-* Results -
+## Results -
+
+* Alignment -
+
+![Alignment](alignResult.png)
+
+* Verification -
+
+![Verification](verificationRes.png)
+
+* Recognition -
+
+![Recognition](recognition.png)
