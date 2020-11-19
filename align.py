@@ -39,7 +39,7 @@ TEMPLATE = np.float32([
     (0.5240106503, 0.783370783245), (0.477561227414, 0.778476346951)])
 
 TPL_MAX, TPL_MIN = np.max(TEMPLATE, axis=0), np.min(TEMPLATE, axis=0)
-MINMAX_TEMPLATE = (TEMPLATE - TPL_MIN) / (TPL_MAX - TPL_MAX)
+MINMAX_TEMPLATE = (TEMPLATE - TPL_MIN) / (TPL_MAX - TPL_MIN)
 
 class AlignDlib:
     # Landmark Indices
@@ -81,6 +81,7 @@ class AlignDlib:
     def align(self, imgDim, rgbImg, bb=None,
               landmarks=None, landmarkIndices=INNER_EYES_AND_BOTTOM_LIP,
               skipMulti=False):
+
         assert imgDim is not None
         assert rgbImg is not None
         assert landmarkIndices is not None
