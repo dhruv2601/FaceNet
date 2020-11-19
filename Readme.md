@@ -8,12 +8,12 @@
 
 * Alignment -
 
-![Alignment](alignResult.png)
+![Alignment](results/alignResult.png)
 
 * Verification -
 
-![Verification](verificationRes.png)
+![Verification](results/verificationRes.png)
 
 * Recognition -
 
-![Recognition](recognition.png)
+![Recognition](results/recognition.png)
