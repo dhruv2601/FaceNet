@@ -6,14 +6,14 @@
 * Weights from the pretrained OpenFace model(an implementation of FaceNet trained on the public datasets FaceScrub and CASIA-WebFace) are used further.
 ## Results -
 
-* Alignment -
+### Alignment 
 
 ![Alignment](results/alignResult.png)
 
-* Verification -
+### Verification 
 
 ![Verification](results/verificationRes.png)
 
-* Recognition -
+### Recognition 
 
 ![Recognition](results/recognition.png)
